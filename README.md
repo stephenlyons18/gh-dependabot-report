@@ -1,34 +1,31 @@
-# gh-dependency-report
+# gh-dependabot-report
 
-A `gh` extension to generate report of repository manifests and dependencies discovered through GitHub's [software supply chain](https://docs.github.com/en/code-security/supply-chain-security) capabilities.
-
-![Demo of gh-dependency-report extension](https://user-images.githubusercontent.com/2089743/154634826-716abba3-f139-4b7a-a106-01c0ab5b68c4.gif)
+A `gh` extension to generate comprehensive security vulnerability reports using GitHub's Dependabot data for your repositories.
 
 ## Quickstart
 
-1. `gh extension install andyfeller/gh-dependency-report`
-1. `gh dependency-report $(whoami)`
-1. Profit! :moneybag: :money_with_wings: :money_mouth_face: :money_with_wings: :moneybag:
+1. `gh extension install andyfeller/gh-dependabot-report`
+2. `gh dependabot-report $(whoami)`
+3. Review vulnerabilities and prioritize fixes!
 
 ## Usage
 
-Pulling [manifests](https://docs.github.com/en/graphql/reference/objects#dependencygraphmanifest) and [dependencies](https://docs.github.com/en/graphql/reference/objects#dependencygraphdependency) including [license info](https://docs.github.com/en/graphql/reference/objects#license) around [repositories](https://docs.github.com/en/graphql/reference/objects#repository) from [GitHub's GraphQL API](https://docs.github.com/en/graphql/reference/).  This is only works for repositories that have [enabled the dependency graph feature](https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph#enabling-the-dependency-graph).
-
-The result is a CSV that companies and individuals can use to attest to software licenses in use, making the jobs of platform engineering, legal, security, and auditors easier.
+This extension uses the GitHub GraphQL API to fetch vulnerability information from Dependabot alerts, providing a comprehensive CSV report of security issues in your repositories. This allows security teams, developers, and auditors to efficiently track and remediate vulnerabilities.
 
 ```shell
- $ gh dependency-report --help
+ $ gh dependabot-report --help
 
-Generate report of repository manifests and dependencies discovered through the dependency graph
+Generate vulnerability report of repositories using Dependabot data
 
-Usage:
-  gh-dependency-report [flags] owner [repo ...]
+Usage:```
+  gh-dependabot-report [flags] owner [repo ...]
 
 Flags:
   -d, --debug                Whether to debug logging
   -e, --exclude strings      Repositories to exclude from report
-  -h, --help                 help for gh-dependency-report
-  -o, --output-file string   Name of file to write CSV report (default "report-20220216081518.csv")
+  -h, --help                 help for gh-dependabot-report
+  -o, --output-file string   Name of file to write CSV report (default "dependabot-report-20240501120000.csv")
+  -s, --severity string      Filter by severity (critical, high, moderate, low)
 ```
 
 The resulting CSV file contains the most common information used for these purposes:
